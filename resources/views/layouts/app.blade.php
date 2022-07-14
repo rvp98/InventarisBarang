@@ -15,9 +15,13 @@
   <link rel="stylesheet" href="{{ asset('vendor/nucleo/css/nucleo.css') }}" type="text/css">
   <link rel="stylesheet" href="{{ asset('vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" type="text/css">
   <!-- Page plugins -->
+  <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
+  <link rel="stylesheet" href="{{ asset('vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendor/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
   <!-- Argon CSS -->
   <link rel="stylesheet" href="{{ asset('css/argon.css?v=1.1.0') }}" type="text/css">
-  <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
+  
 </head>
 
 <body>
@@ -62,13 +66,13 @@
                     <a href="{{ route('barang') }}" class="nav-link">Barang</a>
                   </li>
                   <li class="nav-item">
-                    <a href="../../pages/examples/login.html" class="nav-link">Kategori Barang</a>
+                    <a href="{{ route('kategori_barang') }}" class="nav-link">Kategori Barang</a>
                   </li>
                 </ul>
               </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../../pages/widgets.html">
+                <a class="nav-link" href="{{ route('peminjam') }}">
                   <i class="ni ni-circle-08 text-green"></i>
                   <span class="nav-link-text">Data Peminjam</span>
                 </a>
@@ -79,12 +83,14 @@
                   <span class="nav-link-text">Transaksi Peminjaman</span>
                 </a>
             </li>
+            @if (Auth::user()->role == 'superadmin')
             <li class="nav-item">
-                <a class="nav-link" href="../../pages/widgets.html">
-                  <i class="ni ni-badge text-red"></i>
-                  <span class="nav-link-text">Data Admin</span>
-                </a>
+              <a class="nav-link" href="{{ route('data_admin') }}">
+                <i class="ni ni-badge text-red"></i>
+                <span class="nav-link-text">Data Admin</span>
+              </a>
             </li>
+            @endif
           </ul>
         </div>
       </div>
@@ -146,6 +152,15 @@
   <!-- Optional JS -->
   <script src="{{ asset('vendor/chart.js/dist/Chart.min.js') }}"></script>
   <script src="{{ asset('vendor/chart.js/dist/Chart.extension.js') }}"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="{{ asset('vendor/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+  <script src="{{ asset('vendor/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+  <script src="{{ asset('vendor/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
+  <script src="{{ asset('vendor/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+  <script src="{{ asset('vendor/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
+  <script src="{{ asset('vendor/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+  <script src="{{ asset('vendor/datatables.net-select/js/dataTables.select.min.js') }}"></script>
   <!-- Argon JS -->
   <script src="{{ asset('js/argon.js?v=1.1.0') }}"></script>
   <!-- Demo JS - remove this in your project -->
