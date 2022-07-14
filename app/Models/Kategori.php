@@ -13,4 +13,8 @@ class Kategori extends Model
         'nama_kategori',
     ];
     protected $primaryKey = 'id';
+
+    public function barangs() {
+    	return $this->hasMany('App\Models\Barang');
+    }
 }

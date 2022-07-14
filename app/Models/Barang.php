@@ -18,4 +18,8 @@ class Barang extends Model
         'foto_barang'
     ];
     protected $primaryKey = 'id';
+
+    public function kategoris() {
+    	return $this->belongsTo('App\Models\Kategori', 'kategori_id');
+    }
 }
