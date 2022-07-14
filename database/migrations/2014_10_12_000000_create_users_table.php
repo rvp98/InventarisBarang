@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone', 20);
             $table->text('address')->nullable();
+            $table->enum('role', ['superadmin', 'admin'])->default('admin');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
