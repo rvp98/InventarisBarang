@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="{{ asset('vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   <!-- Argon CSS -->
   <link rel="stylesheet" href="{{ asset('css/argon.css?v=1.1.0') }}" type="text/css">
   
@@ -78,7 +79,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../../pages/widgets.html">
+                <a class="nav-link" href="{{ route('peminjaman') }}">
                   <i class="ni ni-basket text-info"></i>
                   <span class="nav-link-text">Transaksi Peminjaman</span>
                 </a>
@@ -161,6 +162,7 @@
   <script src="{{ asset('vendor/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
   <script src="{{ asset('vendor/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
   <script src="{{ asset('vendor/datatables.net-select/js/dataTables.select.min.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <!-- Argon JS -->
   <script src="{{ asset('js/argon.js?v=1.1.0') }}"></script>
   <!-- Demo JS - remove this in your project -->

@@ -22,4 +22,8 @@ class Barang extends Model
     public function kategoris() {
     	return $this->belongsTo('App\Models\Kategori', 'kategori_id');
     }
+
+    public function detail_peminjaman() {
+        return $this->hasOne('App\Models\DetailPeminjaman');
+    }
 }

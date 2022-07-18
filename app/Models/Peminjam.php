@@ -16,4 +16,8 @@ class Peminjam extends Model
         'divisi',
     ];
     protected $primaryKey = 'id';
+
+    public function peminjaman() {
+    	return $this->hasOne('App\Models\Peminjaman');
+    }
 }

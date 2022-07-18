@@ -17,6 +17,7 @@ class CreateDetailPeminjamanTable extends Migration
             $table->id();
             $table->integer('peminjaman_id');
             $table->integer('barang_id');
+            $table->integer('jumlah');
             $table->timestamps();
         });
     }

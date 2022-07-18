@@ -17,4 +17,12 @@ class Peminjaman extends Model
         'keterangan',
     ];
     protected $primaryKey = 'id';
+
+    public function detail_peminjaman() {
+    	return $this->hasMany('App\Models\DetailPeminjaman');
+    }
+
+    public function peminjam() {
+    	return $this->belongsTo('App\Models\Peminjam');
+    }
 }

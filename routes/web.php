@@ -6,6 +6,7 @@ use App\Http\Controllers\Barang\BarangController;
 use App\Http\Controllers\Barang\KategoriBarangController;
 use App\Http\Controllers\Peminjam\PeminjamController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Transaksi\PeminjamanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/peminjam/edit/{id}', [PeminjamController::class, 'fetchPeminjam'])->name('peminjam.edit');
     Route::get('/peminjam/delete/{id}', [PeminjamController::class, 'deletePeminjam'])->name('peminjam.delete');
     Route::post('/peminjam', [PeminjamController::class, 'storePeminjam'])->name('peminjam.store');
+
+    // Peminjaman
+    Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman');
+    Route::get('/add_peminjaman', [PeminjamanController::class, 'addPeminjaman'])->name('add_peminjaman');
+    Route::post('/peminjaman', [PeminjamanController::class, 'storePeminjaman'])->name('peminjaman.store');
 
     // Data Admin
     Route::get('/data_admin', [AdminController::class, 'index'])->name('data_admin');
