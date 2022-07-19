@@ -45,7 +45,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     // Peminjaman
     Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman');
     Route::get('/add_peminjaman', [PeminjamanController::class, 'addPeminjaman'])->name('add_peminjaman');
+    Route::get('/edit_peminjaman/{id}', [PeminjamanController::class, 'editPeminjaman'])->name('edit_peminjaman');
+    Route::get('/peminjaman/delete/{id}', [PeminjamanController::class, 'deletePeminjaman'])->name('peminjaman.delete');
     Route::post('/peminjaman', [PeminjamanController::class, 'storePeminjaman'])->name('peminjaman.store');
+    Route::post('/peminjaman_edit', [PeminjamanController::class, 'storeEditPeminjaman'])->name('peminjaman.store_edit');
 
     // Data Admin
     Route::get('/data_admin', [AdminController::class, 'index'])->name('data_admin');

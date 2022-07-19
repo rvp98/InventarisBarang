@@ -34,6 +34,7 @@
                                         <th>Tgl Peminjaman</th>
                                         <th>Tgl Pengembalian</th>
                                         <th>Keterangan</th>
+                                        <th>Dilayani Oleh</th>
                                         <th>*</th>
                                     </tr>
                                 </thead>
@@ -56,6 +57,16 @@
                 }
             });
 
+            function convertDateDBtoIndo(string) {
+                bulanIndo = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September' , 'Oktober', 'November', 'Desember'];
+
+                tanggal = string.split("-")[2];
+                bulan = string.split("-")[1];
+                tahun = string.split("-")[0];
+
+                return tanggal + " " + bulanIndo[Math.abs(bulan)] + " " + tahun;
+            }
+
             let tbl_peminjaman = $('#tbl_peminjaman').DataTable({
                 processing: true,
                 serverSide: true,
@@ -64,9 +75,25 @@
                     { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                     { data: 'peminjam.nama_peminjam', name: 'peminjam' },
                     { data: 'list_barang', name: 'list_barang' },
-                    { data: 'tgl_peminjaman', name: 'tgl_peminjaman' },
-                    { data: 'tgl_pengembalian', name: 'tgl_pengembalian' },
+                    { 
+                        data: 'tgl_peminjaman', 
+                        name: 'tgl_peminjaman',
+                        render: function ( data, type, row, meta ) {
+                            return convertDateDBtoIndo(data);
+                        } 
+                    },
+                    { 
+                        data: 'tgl_pengembalian', 
+                        name: 'tgl_pengembalian',
+                        render: function ( data, type, row, meta ) {
+                            if (data) {
+                                return convertDateDBtoIndo(data);
+                            }
+                            return '';
+                        } 
+                    },
                     { data: 'keterangan', name: 'keterangan' },
+                    { data: 'dilayani', name: 'dilayani' },
                     { data: 'action', name: 'action', orderable: false, searchable: false },
                 ],
                 language: {
@@ -75,6 +102,37 @@
                         previous: '<i class="fas fa-angle-left"></i>' // or '←' 
                     }
                 },
+                columnDefs: [
+                    {
+                        targets: [3,4],  
+                        className: 'text-center',
+                    }
+                ],
+            });
+
+            $('body').on('click', '.delete_peminjaman', function () {
+                let peminjaman_id = $(this).data('id');
+                // confirm("Are You sure want to delete !");
+                
+                swal({
+                    title: 'Apakah anda yakin?',
+                    text: 'Data akan dihapus secara permanen',
+                    icon: 'warning',
+                    buttons: ["Cancel", "Yes!"],
+                }).then(function(value) {
+                    if (value) {
+                        $.ajax({
+                            url: "{{ route('peminjaman') }}" + '/delete/' + peminjaman_id,
+                            success: function (data) {
+                                tbl_peminjaman.ajax.reload(null, false);
+                                swal("Success", "Data Berhasil Dihapus", "success")
+                            },
+                            error: function (data) {
+                                console.log('Error:', data);
+                            }
+                        });
+                    }
+                });
             });
         });
     </script>
