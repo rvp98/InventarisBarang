@@ -21,6 +21,7 @@ class CreateBarangTable extends Migration
             $table->text('deskripsi');
             $table->string('kondisi');
             $table->text('foto_barang');
+            $table->enum('status', ['1', '0'])->default('1');
             $table->timestamps();
         });
     }

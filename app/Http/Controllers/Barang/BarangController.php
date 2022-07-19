@@ -17,6 +17,14 @@ class BarangController extends Controller
         if ($request->ajax()) {
             return Datatables::of($data)
                 ->addIndexColumn()
+                ->addColumn('status_barang', function($row){
+                    if ($row->status == '1') {
+                        $status = '<span class="badge badge-lg badge-success">Aktif</span>';
+                    } else {
+                        $status = '<span class="badge badge-lg badge-danger">Tidak Aktif</span>';
+                    }
+                    return $status;
+                })
                 ->addColumn('kondisi_barang', function($row){
                     if ($row->kondisi == 'baik') {
                         $kondisi = '<span class="badge badge-lg badge-success">Baik</span>';
@@ -32,7 +40,7 @@ class BarangController extends Controller
                     $btn .= '<a href="javascript:void(0)" class="table-action delete_barang" data-id="'.$row->id.'" data-toggle="tooltip" data-original-title="Delete Barang"><i class="fas fa-trash"></i></a>';
                     return $btn;
                 })
-                ->rawColumns(['action', 'kondisi_barang'])
+                ->rawColumns(['action', 'kondisi_barang','status_barang'])
                 ->make(true);
         }
         
@@ -68,6 +76,7 @@ class BarangController extends Controller
                     'stok' => $request->stok_barang,
                     'kondisi' => $request->kondisi_barang,
                     'deskripsi' => $request->deskripsi,
+                    'status' => $request->status_barang
                 ]
             );
         } else {
@@ -79,6 +88,7 @@ class BarangController extends Controller
                     'stok' => $request->stok_barang,
                     'kondisi' => $request->kondisi_barang,
                     'deskripsi' => $request->deskripsi,
+                    'status' => $request->status_barang
                 ]
             );
         }

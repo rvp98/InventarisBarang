@@ -35,6 +35,7 @@
                                         <th>Stok</th>
                                         <th>Deskripsi</th>
                                         <th>Kondisi</th>
+                                        <th>Aktif</th>
                                         <th>*</th>
                                     </tr>
                                 </thead>
@@ -83,7 +84,7 @@
                                     <input type="file" class="form-control" id="foto_barang" name="foto_barang" value="">
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-control-label">Kategori Barang</label>
                                     {!! Form::select('kategori_id', $kategori_barang, null,['class' => 'form-control', 'id' => 'kategori_id']) !!}
@@ -95,7 +96,7 @@
                                     <input type="number" class="form-control" id="stok_barang" name="stok_barang" value="0" min="0">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" id="kondisi">
                                 <div class="form-group">
                                     <label class="form-control-label">Kondisi</label>
                                     <select name="kondisi_barang" id="kondisi_barang" class="form-control">
@@ -103,6 +104,20 @@
                                         <option value="kurang_baik">Kurang Baik</option>
                                         <option value="rusak">Rusak</option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6" id="sts">
+                                <div class="form-group">
+                                    <label class="form-control-label">Status</label><br>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="status_aktif" name="status_barang" checked value="1" class="custom-control-input">
+                                        <label class="custom-control-label" for="status_aktif">Aktif</label>
+                                    </div>
+                                    <br>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="status_noaktif" name="status_barang" value="0" class="custom-control-input">
+                                        <label class="custom-control-label" for="status_noaktif">Tidak Aktif</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -136,6 +151,9 @@
                 $('.modal-title').html("Tambah Data Barang");
                 $('#form_error').hide();
                 $('#modal-add').modal('show');
+                $('#kondisi').removeClass('col-md-6');
+                $('#kondisi').addClass('col-md-12');
+                $('#sts').hide();
             });
 
             let tbl_barang = $('#tbl_barang').DataTable({
@@ -156,6 +174,7 @@
                     { data: 'stok', name: 'stok' },
                     { data: 'deskripsi', name: 'deskripsi' },
                     { data: 'kondisi_barang', name: 'kondisi_barang' },
+                    { data: 'status_barang', name: 'status_barang '},
                     { data: 'action', name: 'action', orderable: false, searchable: false },
                 ],
                 language: {
@@ -213,7 +232,12 @@
 
             $('body').on('click', '.edit_barang', function () {
                 let barang_id = $(this).data('id');
+                $('#kondisi').addClass('col-md-6');
+                $('#kondisi').removeClass('col-md-12');
+                $('#sts').show();
+
                 $.get("{{ route('barang') }}" +'/edit/' + barang_id, function (data) {
+                    console.log(data);
                     $('.modal-title').html("Edit Data Barang");
                     $('#submit_barang').val("edit");
                     $('#modal-add').modal('show');
@@ -225,6 +249,11 @@
                     $('#stok_barang').val(data.stok);
                     $('#kondisi_barang').val(data.kondisi);
                     $('#deskripsi').val(data.deskripsi);
+                    if (data.status == '1') {
+                        $("#status_aktif").prop("checked", true); 
+                    } else {
+                        $("#status_noaktif").prop("checked", true);
+                    }
                 })
             });
 
